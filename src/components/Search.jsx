@@ -17,7 +17,7 @@ class Search extends React.Component {
   searchNews = (query) => {
     let url = 'https://newsapi.org/v2/everything?' +
       `q=${query}&` +
-      'sortBy=publishedAt&' +
+      'sortBy=relevancy&' +
       'apiKey=7680942fa076452ab0671b9ef5516074';
     axios.get(url).then(response => {
       this.setState({
