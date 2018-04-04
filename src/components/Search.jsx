@@ -4,6 +4,11 @@ import SearchForm from './SearchForm'
 import HeadlineQueryList from './HeadlineQueryList';
 import axios from 'axios';
 
+import { createStore } from 'redux'
+import { getNewsSearchRdx } from '../redux/index.js'
+import { reducer } from '../redux/index.js'
+const store = createStore(reducer)
+
 class Search extends React.Component {
   constructor () {
     super()
@@ -14,6 +19,14 @@ class Search extends React.Component {
     }
   }
 
+  componentDidMount() {
+    store.subscribe(() => {
+      this.setState({
+        newsLook: store.getState().newsSearch
+      })
+    })
+  }
+
   searchNews = (query) => {
     let url = 'https://newsapi.org/v2/everything?' +
       `q=${query}&` +
@@ -22,9 +35,10 @@ class Search extends React.Component {
       'apiKey=7680942fa076452ab0671b9ef5516074';
     axios.get(url).then(response => {
       // console.log(response.data);
-      this.setState({
-        newsLook: response.data.articles
-      })
+      // this.setState({
+      //   newsLook: response.data.articles
+      // })
+      store.dispatch(getNewsSearchRdx(response.data.articles))
       this.props.history.push(`${this.props.match.path}/query/${query}`)
     }).catch(err => {
       this.setState({
