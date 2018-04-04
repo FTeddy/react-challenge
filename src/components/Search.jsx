@@ -5,8 +5,7 @@ import HeadlineQueryList from './HeadlineQueryList';
 import axios from 'axios';
 
 import { createStore } from 'redux'
-import { getNewsSearchRdx } from '../redux/index.js'
-import { reducer } from '../redux/index.js'
+import { getNewsSearchRdx, reducer } from '../redux/index.js'
 const store = createStore(reducer)
 
 class Search extends React.Component {
@@ -34,10 +33,6 @@ class Search extends React.Component {
       'sortBy=publishedAt&' +
       'apiKey=7680942fa076452ab0671b9ef5516074';
     axios.get(url).then(response => {
-      // console.log(response.data);
-      // this.setState({
-      //   newsLook: response.data.articles
-      // })
       store.dispatch(getNewsSearchRdx(response.data.articles))
       this.props.history.push(`${this.props.match.path}/query/${query}`)
     }).catch(err => {
