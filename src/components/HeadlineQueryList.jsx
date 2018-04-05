@@ -3,20 +3,13 @@ import 'bulma/css/bulma.css'
 import '../helper.css'
 import { connect } from 'react-redux'
 
+import ErrorLoad from './ErrorLoad.jsx'
+
 class HeadlineQueryList extends React.Component {
   render () {
     if (this.props.err) {
         return (
-          <div className="columns">
-            <div className="column is-3"></div>
-            <div className="column is-6">
-              <div className="content">
-                <h1>{ this.props.err }</h1>
-                <h2>Data retreiving failed.</h2>
-              </div>
-            </div>
-            <div className="column is-3"></div>
-          </div>
+          <ErrorLoad />
         )
     } else {
       return (
